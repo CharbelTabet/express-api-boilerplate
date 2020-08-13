@@ -1,15 +1,10 @@
-// CALL packages (add your packages)
+// CALL packages
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv/config');
 
-
-// CALL routers (add your routes here)
-const api_routes = require('./routes/model_name');
-
-
-// CONNECT to database (replace db link in the .env file)
+// CONNECT to database (replace DB_CONNECTION in the .env file)
 mongoose.connect(process.env.DB_CONNECTION, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -19,20 +14,19 @@ mongoose.connect(process.env.DB_CONNECTION, {
     console.log(`DB Connection Error: ${err.message}`);
 });
 
-
-// USE express app (add your express app configuration)
+// CONFIGURE express app (add your express app configuration)
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // USE routers (add routes you previously called)
+const api_routes = require('./routes/model_name');
 app.use('/', api_routes);
 
 // USE other middlewares (add your middlewares)
 app.use((req, res) => {
     return res.send(`${req.url} not found, 404`); // err 404 handling
 });
-
 
 // Cross-Origin Resource Sharing (CORS) server (add your server configuration)
 app.use(cors);

@@ -2,10 +2,8 @@
 const express = require('express');
 const model_name = require('../models/model_name');
 
-
-// INITIALIZE routers
+// INITIALIZE router
 const router = express.Router();
-
 
 // GET all "model_names"
 router.get('/', async (req, res) => {
